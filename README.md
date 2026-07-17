@@ -79,14 +79,14 @@ npm run dev                          # http://localhost:3000
 
 ## 🗺 Yol Haritası
 
-- [x] Hafta 1: Altyapı, Docker, proje iskeleti
-- [ ] Hafta 2: Kimlik doğrulama (JWT, rol bazlı erişim)
-- [ ] Hafta 3: Ürün / kategori / varyant CRUD, görsel yükleme
-- [ ] Hafta 4: Frontend katalog, ürün detay (responsive)
-- [ ] Hafta 5: Sepet, favoriler, adres yönetimi
-- [ ] Hafta 6: Checkout, sipariş akışı, stok düşme (transaction)
-- [ ] Hafta 7: Admin paneli, yorumlar, arama
-- [ ] Hafta 8: Test, iyileştirme, Docker prod build, sunum
+- [x] Hafta 1.1: Altyapı, Docker, proje iskeleti
+- [ ] Hafta 1.2: Kimlik doğrulama (JWT, rol bazlı erişim)
+- [ ] Hafta 2.1: Ürün / kategori / varyant CRUD, görsel yükleme
+- [ ] Hafta 2.2: Frontend katalog, ürün detay (responsive)
+- [ ] Hafta 3.1: Sepet, favoriler, adres yönetimi
+- [ ] Hafta 3.2: Checkout, sipariş akışı, stok düşme (transaction)
+- [ ] Hafta 4.1: Admin paneli, yorumlar, arama
+- [ ] Hafta 4.2: Test, iyileştirme, Docker prod build, sunum
 
 ## 📝 Notlar
 - Stok **varyant** seviyesinde tutulur (beden + renk kombinasyonu).

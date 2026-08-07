@@ -7,7 +7,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 // ---------------- Kullanıcı ----------------
@@ -74,6 +73,9 @@ model Product {
   description String
   basePrice   Decimal          @db.Decimal(10, 2)
   isActive    Boolean          @default(true)
+  material    String?          // örn: "%100 Pamuk"
+  careInfo    String?          // örn: "30°C'de yıkayın"
+  brand       String?          // marka adı
   variants    ProductVariant[]
   images      ProductImage[]
   reviews     Review[]

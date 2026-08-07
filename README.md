@@ -79,16 +79,69 @@ npm run dev                          # http://localhost:3000
 
 ## 🗺 Yol Haritası
 
-- [x] Hafta 1.1: Altyapı, Docker, proje iskeleti
-- [ ] Hafta 1.2: Kimlik doğrulama (JWT, rol bazlı erişim)
-- [ ] Hafta 2.1: Ürün / kategori / varyant CRUD, görsel yükleme
-- [ ] Hafta 2.2: Frontend katalog, ürün detay (responsive)
-- [ ] Hafta 3.1: Sepet, favoriler, adres yönetimi
-- [ ] Hafta 3.2: Checkout, sipariş akışı, stok düşme (transaction)
-- [ ] Hafta 4.1: Admin paneli, yorumlar, arama
-- [ ] Hafta 4.2: Test, iyileştirme, Docker prod build, sunum
+- [x] Hafta 1: Altyapı, Docker, proje iskeleti
+- [x] Hafta 2: Kimlik doğrulama (JWT, rol bazlı erişim)
+- [x] Hafta 3: Ürün / kategori / varyant CRUD, filtreleme
+- [ ] Hafta 4: Frontend katalog, ürün detay (responsive)
+- [x] Hafta 5: Sepet, adres yönetimi
+- [x] Hafta 6: Checkout, sipariş akışı, stok düşme (transaction)
+- [x] Hafta 7: Admin paneli, yorumlar, arama
+- [ ] Hafta 8: Test, iyileştirme, Docker prod build, sunum
 
 ## 📝 Notlar
 - Stok **varyant** seviyesinde tutulur (beden + renk kombinasyonu).
 - Sipariş kalemlerinde ürün adı ve fiyat **kopyalanır**; ürün sonradan değişse bile geçmiş sipariş korunur.
 - Teslimat adresi sipariş anında **snapshot** olarak saklanır.
+
+## 🤖 AI Asistan (Chatbot)
+
+Site sağ altındaki chatbot, Google Gemini ile doğal dilde ürün önerisi yapar
+(örn: "300 TL altında tişört öner"). Çalışması için ücretsiz bir Gemini API
+anahtarı gerekir:
+
+1. https://aistudio.google.com/apikey → "Create API key"
+2. `apps/api/.env` içine: `GEMINI_API_KEY=AIza...`
+3. Backend'i yeniden başlat
+
+Anahtar olmadan site çalışır ama chatbot 503 döner. Detay: `apps/api/src/modules/chat/README.md`
+
+## 🐳 Production Dağıtımı (Docker)
+
+Tüm site (veritabanı + backend + frontend) tek komutla ayağa kalkar.
+
+### 1. Ortam değişkenlerini ayarla
+Kök dizindeki `.env` dosyasını düzenle:
+- `JWT_ACCESS_SECRET` ve `JWT_REFRESH_SECRET` — uzun rastgele değerler gir
+- `GEMINI_API_KEY` — chatbot için (opsiyonel, https://aistudio.google.com/apikey)
+- `RUN_SEED=true` — ilk kurulumda örnek veriyi yükler
+
+### 2. Tüm servisleri başlat
+```bash
+docker compose -f docker-compose.prod.yml up --build
+```
+
+Bu komut sırasıyla:
+1. PostgreSQL'i başlatır (sağlıklı olana kadar bekler)
+2. Backend'i build eder, migration'ları uygular, (opsiyonel) seed yükler, API'yi başlatır
+3. Frontend'i build eder, Nginx ile sunar
+
+### 3. Erişim
+- **Site:** http://localhost
+- **API:** http://localhost/api/health
+
+### 4. İlk kurulumdan sonra
+`.env` içinde `RUN_SEED=false` yap (seed'in tekrar çalışmasına gerek yok).
+
+### Durdurma
+```bash
+docker compose -f docker-compose.prod.yml down       # servisleri durdur
+docker compose -f docker-compose.prod.yml down -v    # + verileri sil
+```
+
+### Mimari
+```
+[Tarayıcı] → :80 [Nginx/web] ──/──→ statik React dosyaları
+                              └─/api→ [api:5000] → [db:5432 Postgres]
+```
+Frontend Nginx, `/api` isteklerini backend konteynerine proxy'ler; kullanıcı
+tek bir port (80) üzerinden hem siteye hem API'ye erişir.

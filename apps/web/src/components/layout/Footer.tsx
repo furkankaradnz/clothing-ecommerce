@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Footer() {
   return (
     <footer className="border-t border-gray-200 bg-gray-50">
@@ -6,31 +8,96 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-gray-900">Mağaza</h3>
             <ul className="mt-4 space-y-2 text-sm text-gray-600">
-              <li>Kadın</li>
-              <li>Erkek</li>
-              <li>Çocuk</li>
+              <li>
+                <Link to="/kategori/kadin" className="hover:text-indigo-600">
+                  Kadın
+                </Link>
+              </li>
+              <li>
+                <Link to="/kategori/erkek" className="hover:text-indigo-600">
+                  Erkek
+                </Link>
+              </li>
+              <li>
+                <Link to="/kategori/cocuk" className="hover:text-indigo-600">
+                  Çocuk
+                </Link>
+              </li>
+              <li>
+                <Link to="/urunler" className="hover:text-indigo-600">
+                  Tüm Ürünler
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
             <h3 className="text-sm font-semibold text-gray-900">Yardım</h3>
             <ul className="mt-4 space-y-2 text-sm text-gray-600">
-              <li>Kargo & Teslimat</li>
-              <li>İade & Değişim</li>
-              <li>SSS</li>
+              <li>
+                <Link to="/kargo" className="hover:text-indigo-600">
+                  Kargo & Teslimat
+                </Link>
+              </li>
+              <li>
+                <Link to="/iade" className="hover:text-indigo-600">
+                  İade & Değişim
+                </Link>
+              </li>
+              <li>
+                <Link to="/sss" className="hover:text-indigo-600">
+                  SSS
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
             <h3 className="text-sm font-semibold text-gray-900">Kurumsal</h3>
             <ul className="mt-4 space-y-2 text-sm text-gray-600">
-              <li>Hakkımızda</li>
-              <li>İletişim</li>
+              <li>
+                <Link to="/hakkimizda" className="hover:text-indigo-600">
+                  Hakkımızda
+                </Link>
+              </li>
+              <li>
+                <Link to="/iletisim" className="hover:text-indigo-600">
+                  İletişim
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
             <h3 className="text-sm font-semibold text-gray-900">Takip Et</h3>
             <ul className="mt-4 space-y-2 text-sm text-gray-600">
-              <li>Instagram</li>
-              <li>Twitter</li>
+              <li>
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-indigo-600"
+                >
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-indigo-600"
+                >
+                  Twitter
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-indigo-600"
+                >
+                  Facebook
+                </a>
+              </li>
             </ul>
           </div>
         </div>

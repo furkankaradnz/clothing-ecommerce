@@ -10,44 +10,53 @@
 - [x] Express iskelet + health endpoint
 - [x] Vite + React + Tailwind iskelet + responsive layout
 
-## Hafta 2 — Kimlik Doğrulama
-- [ ] Register / Login endpoint'leri (bcrypt ile hash)
-- [ ] JWT access + refresh token
-- [ ] auth middleware (token doğrulama)
-- [ ] rol bazlı yetki middleware (CUSTOMER / ADMIN)
-- [ ] Frontend: giriş / kayıt sayfaları
+## Hafta 2 — Kimlik Doğrulama ✅
+- [x] Register / Login endpoint'leri (bcrypt ile hash)
+- [x] JWT access + refresh token
+- [x] auth middleware (token doğrulama)
+- [x] rol bazlı yetki middleware (CUSTOMER / ADMIN)
+- [x] Frontend: giriş / kayıt sayfaları
 
-## Hafta 3 — Katalog
-- [ ] Kategori CRUD
-- [ ] Ürün CRUD + varyant yönetimi
+## Hafta 3 — Katalog ✅
+- [x] Kategori CRUD
+- [x] Ürün CRUD + varyant yönetimi
 - [ ] Görsel yükleme (Multer)
-- [ ] Filtreleme, sıralama, sayfalama (pagination)
+- [x] Filtreleme, sıralama, sayfalama (pagination)
 
 ## Hafta 4 — Frontend Katalog
-- [ ] Ürün listeleme sayfası (API bağlı)
-- [ ] Ürün detay sayfası (beden/renk seçimi)
+- [x] Ürün listeleme sayfası (API bağlı)
+- [x] Ürün detay sayfası (beden/renk seçimi)
 - [ ] Kategori sayfaları
-- [ ] Arama çubuğu
+- [x] Arama çubuğu
 
-## Hafta 5 — Sepet & Kullanıcı
-- [ ] Sepete ekle / çıkar / adet güncelle
+## Hafta 5 — Sepet & Kullanıcı ✅
+- [x] Sepete ekle / çıkar / adet güncelle
 - [ ] Favoriler
 - [ ] Profil sayfası
-- [ ] Adres yönetimi
+- [x] Adres yönetimi
 
-## Hafta 6 — Sipariş
-- [ ] Checkout akışı
-- [ ] Sipariş oluşturma (transaction ile stok düşme)
-- [ ] Sipariş geçmişi
-- [ ] Sipariş durumu takibi
+## Hafta 6 — Sipariş ✅
+- [x] Checkout akışı
+- [x] Sipariş oluşturma (transaction ile stok düşme)
+- [x] Sipariş geçmişi
+- [x] Sipariş durumu takibi
 
-## Hafta 7 — Admin & Ekstra
-- [ ] Admin paneli (ürün/sipariş yönetimi)
-- [ ] Ürün yorumları
-- [ ] Gelişmiş arama
+## Hafta 7 — Admin & Ekstra ✅
+- [x] Admin paneli (ürün/sipariş yönetimi)
+- [x] Ürün yorumları
+- [x] Gelişmiş arama
 
 ## Hafta 8 — Bitiş
 - [ ] Testler
 - [ ] UI/UX iyileştirmeleri
 - [ ] Docker production build (tüm servisler)
 - [ ] Sunum hazırlığı
+
+## Ek Özellikler (çekirdek sonrası)
+- [x] AI Asistan chatbot (Gemini ile ürün önerisi + filtreleme)
+- [x] Genişletilmiş kategori ağacı (5 üst + 28 alt kategori)
+- [x] Tıklanabilir footer + statik sayfalar (SSS, Hakkımızda, İletişim, Kargo, İade)
+- [x] Chatbot kapatma butonu iyileştirildi
+- [x] Zengin ürün detayı (galeri, sekmeler, renk/beden, malzeme/bakım bilgisi)
+- [x] Bol örnek veri (66 ürün, 810 varyant)
+- [x] Üst kategori filtresi alt kategori ürünlerini de getirir

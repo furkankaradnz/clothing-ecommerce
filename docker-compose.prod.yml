@@ -1,0 +1,57 @@
+# Production kurulumu: tek komutla tüm site ayağa kalkar
+#   docker compose -f docker-compose.prod.yml up --build
+#
+# Site: http://localhost      (frontend, nginx)
+# API:  http://localhost/api  (nginx üzerinden backend'e proxy)
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ecommerce_db_prod
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./apps/api
+    container_name: ecommerce_api_prod
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      # Not: host olarak "db" kullanılır (compose servis adı), localhost değil
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      JWT_ACCESS_EXPIRES: 15m
+      JWT_REFRESH_EXPIRES: 7d
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash}
+      # İlk kurulumda örnek veriyi yüklemek için true yap
+      RUN_SEED: ${RUN_SEED:-false}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ./apps/web
+    container_name: ecommerce_web_prod
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data_prod:

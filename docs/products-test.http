@@ -1,0 +1,80 @@
+### Önce admin girişi yap, dönen accessToken'ı @token'a yaz
+# @name login
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@shop.com",
+  "password": "Admin123!"
+}
+
+### Token'ı buraya yapıştır (login yanıtından)
+@token = BURAYA_ACCESS_TOKEN
+
+# ============ KATEGORİLER ============
+
+### Tüm kategoriler (herkese açık)
+GET http://localhost:5000/api/categories
+
+### Kategori oluştur (ADMIN)
+POST http://localhost:5000/api/categories
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Ayakkabı",
+  "slug": "ayakkabi"
+}
+
+# ============ ÜRÜNLER ============
+
+### Tüm ürünler
+GET http://localhost:5000/api/products
+
+### Filtreleme: kategori + sıralama
+GET http://localhost:5000/api/products?category=tisort&sort=price-asc
+
+### Filtreleme: arama
+GET http://localhost:5000/api/products?search=pamuk
+
+### Filtreleme: fiyat aralığı + beden
+GET http://localhost:5000/api/products?minPrice=100&maxPrice=400&size=M
+
+### Filtreleme: renk
+GET http://localhost:5000/api/products?color=Siyah
+
+### Sayfalama
+GET http://localhost:5000/api/products?page=1&limit=2
+
+### Slug ile tek ürün (detay)
+GET http://localhost:5000/api/products/slug/basic-pamuklu-tisort
+
+### Ürün oluştur (ADMIN, varyantlarla)
+POST http://localhost:5000/api/products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Kot Pantolon",
+  "slug": "kot-pantolon",
+  "description": "Slim fit, yüksek bel kot pantolon.",
+  "basePrice": 499.90,
+  "categoryId": "BURAYA_KATEGORI_ID",
+  "variants": [
+    { "size": "30", "color": "Mavi", "sku": "KOT-MAVI-30", "stock": 5 },
+    { "size": "32", "color": "Mavi", "sku": "KOT-MAVI-32", "stock": 8 }
+  ]
+}
+
+### Yetkisiz deneme (token'sız - 401/403 dönmeli)
+POST http://localhost:5000/api/products
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "slug": "test",
+  "description": "yetkisiz deneme",
+  "basePrice": 10,
+  "categoryId": "x",
+  "variants": [{ "size": "M", "color": "X", "sku": "T-1", "stock": 1 }]
+}

@@ -1,0 +1,44 @@
+### Giriş yap (yorum yapacak kullanıcı ürünü satın almış olmalı!)
+# @name login
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{ "email": "admin@shop.com", "password": "Admin123!" }
+
+@token = BURAYA_ACCESS_TOKEN
+
+# ============ YORUMLAR ============
+
+### Ürünün yorumları (herkese açık - ortalama puan + liste döner)
+GET http://localhost:5000/api/reviews/product/BURAYA_URUN_ID
+
+### Yorum ekle (satın almadıysan 403 döner - bu doğru davranış!)
+POST http://localhost:5000/api/reviews/product/BURAYA_URUN_ID
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "rating": 5,
+  "comment": "Kalitesi çok iyi, tavsiye ederim."
+}
+
+### Aynı ürüne ikinci yorum denemesi (409 dönmeli - tek yorum kuralı)
+POST http://localhost:5000/api/reviews/product/BURAYA_URUN_ID
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{ "rating": 3, "comment": "İkinci deneme" }
+
+### Geçersiz puan (6 - 400 dönmeli)
+POST http://localhost:5000/api/reviews/product/BURAYA_URUN_ID
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{ "rating": 6 }
+
+### Yorum sil (kendi yorumu ya da admin)
+DELETE http://localhost:5000/api/reviews/BURAYA_YORUM_ID
+Authorization: Bearer {{token}}
+
+# NOT: Yorum yapabilmek için önce o ürünü satın almış olmalısın.
+# Test akışı: sepete ekle -> adres ekle -> sipariş ver -> sonra yorum yap.

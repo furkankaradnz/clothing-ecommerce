@@ -1,0 +1,63 @@
+ M .env.example
+ M README.md
+ M apps/api/.env.example
+ M apps/api/Dockerfile
+ M apps/api/package.json
+ M apps/api/prisma/schema.prisma
+ M apps/api/prisma/seed.ts
+ M apps/api/src/app.ts
+ M apps/api/src/config/env.ts
+ M apps/api/src/config/prisma.ts
+ M apps/web/src/app/App.tsx
+ M apps/web/src/components/layout/Footer.tsx
+ M apps/web/src/components/layout/Header.tsx
+ M apps/web/src/components/layout/Layout.tsx
+ M apps/web/src/features/catalog/HomePage.tsx
+ M apps/web/src/lib/api.ts
+ M docs/roadmap.md
+?? .cart_test_flow.js
+?? apps/api/api_request_test.cjs
+?? apps/api/api_request_test.js
+?? apps/api/cart_flow_test.cjs
+?? apps/api/check_env.js
+?? apps/api/checkout_flow_test.py
+?? apps/api/debug_prisma_adapter.js
+?? apps/api/debug_prisma_query.js
+?? apps/api/docker-entrypoint.sh
+?? apps/api/package-lock.json
+?? apps/api/prisma.config.ts
+?? apps/api/prisma/migrations/
+?? apps/api/src/common/gemini/
+?? apps/api/src/common/utils/jwt.ts
+?? apps/api/src/common/utils/password.ts
+?? apps/api/src/middlewares/auth.middleware.ts
+?? apps/api/src/modules/
+?? apps/api/src/types/
+?? apps/api/test_http.js
+?? apps/api/tsx_prisma_test.ts
+?? apps/web/package-lock.json
+?? apps/web/src/components/ProtectedRoute.tsx
+?? apps/web/src/features/account/
+?? apps/web/src/features/admin/
+?? apps/web/src/features/auth/
+?? apps/web/src/features/cart/
+?? apps/web/src/features/catalog/CatalogPage.tsx
+?? apps/web/src/features/catalog/CategoryPage.tsx
+?? apps/web/src/features/catalog/ProductDetailPage.tsx
+?? apps/web/src/features/catalog/components/
+?? apps/web/src/features/catalog/productApi.ts
+?? apps/web/src/features/chat/
+?? apps/web/src/features/orders/
+?? apps/web/src/features/reviews/
+?? apps/web/src/features/static/
+?? apps/web/src/store/
+?? apps/web/src/types/
+?? docker-compose.prod.yml
+?? docs/MODA-Sunum.pptx
+?? docs/auth-test.http
+?? docs/cart-test.http
+?? docs/chat-test.http
+?? docs/orders-test.http
+?? docs/products-test.http
+?? docs/reviews-test.http
+?? git_status_out.txt

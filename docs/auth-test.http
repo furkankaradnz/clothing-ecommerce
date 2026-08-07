@@ -1,0 +1,34 @@
+### Sağlık kontrolü
+GET http://localhost:5000/api/health
+
+### Kayıt ol
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@mail.com",
+  "password": "Sifre123",
+  "firstName": "Ali",
+  "lastName": "Veli"
+}
+
+### Giriş yap (dönen accessToken'ı kopyala)
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@mail.com",
+  "password": "Sifre123"
+}
+
+### Profil (korumalı - token gerekli)
+GET http://localhost:5000/api/auth/me
+Authorization: Bearer BURAYA_ACCESS_TOKEN_YAPISTIR
+
+### Token yenile
+POST http://localhost:5000/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "BURAYA_REFRESH_TOKEN_YAPISTIR"
+}

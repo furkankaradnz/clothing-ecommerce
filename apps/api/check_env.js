@@ -1,0 +1,10 @@
+const dotenv = require('dotenv');
+const fs = require('fs');
+console.log('env file exists:', fs.existsSync('.env'));
+console.log('raw .env content:');
+console.log(fs.readFileSync('.env', 'utf8'));
+dotenv.config();
+console.log('loaded DATABASE_URL:', process.env.DATABASE_URL);
+console.log('type:', typeof process.env.DATABASE_URL);
+console.log('starts with quote:', process.env.DATABASE_URL && process.env.DATABASE_URL.startsWith('"'));
+console.log('ends with quote:', process.env.DATABASE_URL && process.env.DATABASE_URL.endsWith('"'));

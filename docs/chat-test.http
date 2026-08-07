@@ -1,0 +1,34 @@
+### AI ürün önerisi - ürün araması
+POST http://localhost:5000/api/chat
+Content-Type: application/json
+
+{
+  "messages": [
+    { "role": "user", "text": "300 TL altında tişört öner" }
+  ]
+}
+
+### Selamlaşma (ürün araması yok, sadece cevap)
+POST http://localhost:5000/api/chat
+Content-Type: application/json
+
+{
+  "messages": [
+    { "role": "user", "text": "Merhaba" }
+  ]
+}
+
+### Çok turlu sohbet (bağlam korunur)
+POST http://localhost:5000/api/chat
+Content-Type: application/json
+
+{
+  "messages": [
+    { "role": "user", "text": "Erkek ürünleri göster" },
+    { "role": "model", "text": "İşte erkek ürünleri!" },
+    { "role": "user", "text": "En ucuzdan sırala" }
+  ]
+}
+
+# NOT: Bu endpoint için apps/api/.env içinde GEMINI_API_KEY dolu olmalı.
+# Anahtar yoksa 503 döner. Ücretsiz anahtar: https://aistudio.google.com/apikey

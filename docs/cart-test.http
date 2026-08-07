@@ -1,0 +1,89 @@
+### Önce giriş yap (normal kullanıcı da olur), token'ı al
+# @name login
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@shop.com",
+  "password": "Admin123!"
+}
+
+@token = BURAYA_ACCESS_TOKEN
+
+# ============ SEPET ============
+
+### Sepeti getir (boşsa otomatik oluşur)
+GET http://localhost:5000/api/cart
+Authorization: Bearer {{token}}
+
+### Sepete ekle (önce GET /products ile bir variantId al)
+POST http://localhost:5000/api/cart/items
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "variantId": "BURAYA_VARIANT_ID",
+  "quantity": 2
+}
+
+### Stok aşımı denemesi (çok yüksek adet - 400 dönmeli)
+POST http://localhost:5000/api/cart/items
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "variantId": "BURAYA_VARIANT_ID",
+  "quantity": 999
+}
+
+### Kalem adedini güncelle
+PATCH http://localhost:5000/api/cart/items/BURAYA_ITEM_ID
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "quantity": 3
+}
+
+### Kalemi kaldır
+DELETE http://localhost:5000/api/cart/items/BURAYA_ITEM_ID
+Authorization: Bearer {{token}}
+
+### Sepeti boşalt
+DELETE http://localhost:5000/api/cart
+Authorization: Bearer {{token}}
+
+# ============ ADRESLER ============
+
+### Adresleri listele
+GET http://localhost:5000/api/addresses
+Authorization: Bearer {{token}}
+
+### Adres ekle
+POST http://localhost:5000/api/addresses
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Ev",
+  "fullName": "Ali Veli",
+  "phone": "05551234567",
+  "city": "Bursa",
+  "district": "Nilüfer",
+  "fullAddress": "Örnek mahallesi, 123. sokak, No:4 D:5",
+  "zipCode": "16110",
+  "isDefault": true
+}
+
+### Adres güncelle
+PATCH http://localhost:5000/api/addresses/BURAYA_ADRES_ID
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "İş"
+}
+
+### Adres sil
+DELETE http://localhost:5000/api/addresses/BURAYA_ADRES_ID
+Authorization: Bearer {{token}}

@@ -1,0 +1,10 @@
+const { PrismaPg } = require('@prisma/adapter-pg');
+const dotenv = require('dotenv');
+const fs = require('fs');
+console.log('env exists', fs.existsSync('.env'));
+dotenv.config();
+const url = process.env.DATABASE_URL;
+console.log('DATABASE_URL', url);
+console.log('type', typeof url);
+const adapter = new PrismaPg({ connectionString: url });
+console.log('created adapter', adapter && typeof adapter === 'object');

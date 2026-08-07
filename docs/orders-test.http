@@ -1,0 +1,57 @@
+### Giriş yap
+# @name login
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{ "email": "admin@shop.com", "password": "Admin123!" }
+
+@token = BURAYA_ACCESS_TOKEN
+
+# ============ SİPARİŞ AKIŞI ============
+# Önce: sepete ürün ekle (cart-test.http) + adres ekle (cart-test.http)
+
+### Sipariş oluştur (checkout) - sahte kart
+POST http://localhost:5000/api/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "addressId": "BURAYA_ADRES_ID",
+  "payment": {
+    "cardNumber": "1234567812345678",
+    "cardHolder": "Ali Veli",
+    "expiry": "12/28",
+    "cvv": "123"
+  }
+}
+
+### Geçersiz kart denemesi (kısa numara - 400 dönmeli)
+POST http://localhost:5000/api/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "addressId": "BURAYA_ADRES_ID",
+  "payment": { "cardNumber": "123", "cardHolder": "X", "expiry": "12/28", "cvv": "123" }
+}
+
+### Kendi siparişlerim
+GET http://localhost:5000/api/orders
+Authorization: Bearer {{token}}
+
+### Tek sipariş detayı
+GET http://localhost:5000/api/orders/BURAYA_SIPARIS_ID
+Authorization: Bearer {{token}}
+
+# ============ ADMIN ============
+
+### Tüm siparişler (admin)
+GET http://localhost:5000/api/orders/admin/all
+Authorization: Bearer {{token}}
+
+### Sipariş durumu güncelle (admin)
+PATCH http://localhost:5000/api/orders/admin/BURAYA_SIPARIS_ID/status
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{ "status": "SHIPPED" }

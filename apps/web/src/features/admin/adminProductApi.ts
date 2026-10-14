@@ -16,6 +16,7 @@ export interface ProductInput {
   basePrice: number;
   categoryId: string;
   isActive?: boolean;
+  images: string[]; // tam 5 görsel URL'i
   variants: VariantInput[];
 }
 

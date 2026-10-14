@@ -3,6 +3,7 @@ import type {
   Product,
   ProductListResponse,
   ProductFilters,
+  FilterOptions,
   Category,
 } from '../../types/product';
 
@@ -16,6 +17,11 @@ export const productApi = {
     });
     const { data } = await api.get(`/products?${params.toString()}`);
     return { products: data.products, pagination: data.pagination };
+  },
+
+  filterOptions: async (): Promise<FilterOptions> => {
+    const { data } = await api.get('/products/filters');
+    return data.data;
   },
 
   getBySlug: async (slug: string): Promise<Product> => {

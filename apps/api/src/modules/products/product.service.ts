@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client';
+import { prisma } from '../../config/prisma';
 import { productRepository } from './product.repository';
 import {
   CreateProductInput,
@@ -62,6 +63,26 @@ function buildWhere(query: ProductQuery): Prisma.ProductWhereInput {
     where.variants = { some: variantFilter };
   }
 
+  // Sadece indirimdeki ürünler
+  if (query.onSale) {
+    where.discountPrice = { not: null };
+  }
+
+  // Sadece öne çıkan ürünler
+  if (query.featured) {
+    where.isFeatured = true;
+  }
+
+  // Tarz filtresi
+  if (query.style) {
+    where.style = query.style;
+  }
+
+  // Kesim filtresi
+  if (query.fit) {
+    where.fit = query.fit;
+  }
+
   return where;
 }
 
@@ -120,5 +141,44 @@ export const productService = {
   async remove(id: string) {
     await this.getById(id);
     return productRepository.delete(id);
+  },
+
+  // Filtre panelinde gösterilecek seçenekleri döndürür (tarz, kesim, renk, beden, fiyat aralığı)
+  async getFilterOptions() {
+    const [styles, fits, variants, priceAgg] = await Promise.all([
+      prisma.product.findMany({
+        where: { isActive: true, style: { not: null } },
+        select: { style: true },
+        distinct: ['style'],
+      }),
+      prisma.product.findMany({
+        where: { isActive: true, fit: { not: null } },
+        select: { fit: true },
+        distinct: ['fit'],
+      }),
+      prisma.productVariant.findMany({
+        select: { size: true, color: true },
+        distinct: ['size', 'color'],
+      }),
+      prisma.product.aggregate({
+        where: { isActive: true },
+        _min: { basePrice: true },
+        _max: { basePrice: true },
+      }),
+    ]);
+
+    const sizes = [...new Set(variants.map((v: any) => v.size))];
+    const colors = [...new Set(variants.map((v: any) => v.color))];
+
+    return {
+      styles: styles.map((s: any) => s.style).filter(Boolean),
+      fits: fits.map((f: any) => f.fit).filter(Boolean),
+      sizes,
+      colors,
+      priceRange: {
+        min: Math.floor(Number(priceAgg._min.basePrice || 0)),
+        max: Math.ceil(Number(priceAgg._max.basePrice || 2000)),
+      },
+    };
   },
 };

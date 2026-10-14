@@ -20,6 +20,7 @@ const emptyForm = {
   description: '',
   basePrice: 0,
   categoryId: '',
+  images: ['', '', '', '', ''], // tam 5 görsel URL'i
   variants: [{ ...emptyVariant }],
 };
 
@@ -86,6 +87,13 @@ export default function AdminProductsPage() {
     setForm((f) => ({
       ...f,
       variants: f.variants.filter((_, i) => i !== index),
+    }));
+
+  // Görsel URL'ini güncelle (5 sabit slot)
+  const updateImage = (index: number, value: string) =>
+    setForm((f) => ({
+      ...f,
+      images: f.images.map((img, i) => (i === index ? value : img)),
     }));
 
   const inputCls =
@@ -178,6 +186,46 @@ export default function AdminProductsPage() {
             />
           </div>
 
+          {/* Ürün görselleri - tam 5 zorunlu */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Ürün Görselleri (5 adet zorunlu)
+            </label>
+            <p className="mb-2 text-xs text-gray-500">
+              Her ürün için tam 5 görsel URL'i girin. İlk görsel kapak (birincil)
+              görseldir. Kıyafetin ön planda olduğu, ürünle örtüşen görseller önerilir.
+            </p>
+            <div className="space-y-2">
+              {form.images.map((img, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  {/* Önizleme */}
+                  <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded border border-gray-200 bg-gray-50">
+                    {img ? (
+                      <img
+                        src={img}
+                        alt=""
+                        className="h-full w-full object-cover"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.opacity = '0.2';
+                        }}
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-xs text-gray-300">
+                        {i + 1}
+                      </div>
+                    )}
+                  </div>
+                  <input
+                    className={inputCls}
+                    placeholder={`Görsel ${i + 1} URL'i${i === 0 ? ' (kapak)' : ''}`}
+                    value={img}
+                    onChange={(e) => updateImage(i, e.target.value)}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Varyantlar */}
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -235,7 +283,15 @@ export default function AdminProductsPage() {
           </div>
 
           <button
-            onClick={() => createProduct.mutate()}
+            onClick={() => {
+              // 5 görselin de dolu olduğunu kontrol et
+              const filled = form.images.filter((u) => u.trim() !== '');
+              if (filled.length !== 5) {
+                setError('Tam olarak 5 görsel URL\'i girmelisiniz');
+                return;
+              }
+              createProduct.mutate();
+            }}
             disabled={createProduct.isPending}
             className="rounded-md bg-indigo-600 px-6 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
           >

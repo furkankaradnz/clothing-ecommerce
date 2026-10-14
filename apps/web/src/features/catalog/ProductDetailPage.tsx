@@ -5,6 +5,7 @@ import { productApi } from './productApi';
 import { useAddToCart } from '../cart/useCart';
 import { useAuthStore } from '../../store/authStore';
 import ProductReviews from '../reviews/ProductReviews';
+import ProductGallery from './components/ProductGallery';
 import type { Variant } from '../../types/product';
 
 export default function ProductDetailPage() {
@@ -15,7 +16,6 @@ export default function ProductDetailPage() {
 
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<string>('');
-  const [activeImage, setActiveImage] = useState(0);
   const [feedback, setFeedback] = useState('');
   const [activeTab, setActiveTab] = useState<'desc' | 'details' | 'shipping'>('desc');
 
@@ -91,38 +91,8 @@ export default function ProductDetailPage() {
       </nav>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-        {/* Görsel galerisi */}
-        <div>
-          <div className="aspect-[3/4] w-full overflow-hidden rounded-lg bg-gray-100">
-            {product.images[activeImage] ? (
-              <img
-                src={product.images[activeImage].url}
-                alt={product.name}
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <div className="flex h-full items-center justify-center text-gray-400">
-                Görsel yok
-              </div>
-            )}
-          </div>
-          {/* Küçük görseller */}
-          {product.images.length > 1 && (
-            <div className="mt-3 flex gap-2">
-              {product.images.map((img, i) => (
-                <button
-                  key={img.id}
-                  onClick={() => setActiveImage(i)}
-                  className={`h-20 w-16 overflow-hidden rounded border-2 ${
-                    activeImage === i ? 'border-indigo-600' : 'border-transparent'
-                  }`}
-                >
-                  <img src={img.url} alt="" className="h-full w-full object-cover" />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        {/* Kaydırmalı görsel galerisi (5 görsel) */}
+        <ProductGallery images={product.images} />
 
         {/* Bilgi */}
         <div>
@@ -134,7 +104,21 @@ export default function ProductDetailPage() {
           </h1>
           <p className="mt-1 text-sm text-gray-500">{product.category.name}</p>
 
-          <p className="mt-4 text-3xl font-bold text-gray-900">{price} ₺</p>
+          {product.discountPrice ? (
+            <div className="mt-4 flex items-center gap-3">
+              <span className="text-3xl font-bold text-rose-600">
+                {Number(product.discountPrice).toLocaleString('tr-TR', { minimumFractionDigits: 2 })} ₺
+              </span>
+              <span className="text-lg text-gray-400 line-through">
+                {price} ₺
+              </span>
+              <span className="rounded-full bg-rose-100 px-2.5 py-1 text-sm font-bold text-rose-700">
+                %{Math.round((1 - Number(product.discountPrice) / Number(product.basePrice)) * 100)} indirim
+              </span>
+            </div>
+          ) : (
+            <p className="mt-4 text-3xl font-bold text-gray-900">{price} ₺</p>
+          )}
 
           {/* Renk seçimi */}
           <div className="mt-6">
@@ -264,6 +248,18 @@ export default function ProductDetailPage() {
                 <li>
                   <span className="font-medium text-gray-900">Marka:</span>{' '}
                   {product.brand}
+                </li>
+              )}
+              {product.style && (
+                <li>
+                  <span className="font-medium text-gray-900">Tarz:</span>{' '}
+                  {product.style}
+                </li>
+              )}
+              {product.fit && (
+                <li>
+                  <span className="font-medium text-gray-900">Kesim:</span>{' '}
+                  {product.fit}
                 </li>
               )}
               {product.material && (

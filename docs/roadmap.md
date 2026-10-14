@@ -60,3 +60,19 @@
 - [x] Zengin ürün detayı (galeri, sekmeler, renk/beden, malzeme/bakım bilgisi)
 - [x] Bol örnek veri (66 ürün, 810 varyant)
 - [x] Üst kategori filtresi alt kategori ürünlerini de getirir
+- [x] Görsel yükseltme: canlı renkler, gradyanlar, framer-motion animasyonları
+- [x] Otomatik dönen hero carousel (kampanya slaytları)
+- [x] Sonsuz kayan ürün şeridi ("kıyafet sonsuzluğu")
+- [x] İndirim sistemi (indirimli fiyat, rozet, /indirim sayfası)
+- [x] Öne çıkan ürünler + kampanya banner'ları
+- [x] Gerçek Unsplash ürün görselleri
+- [x] Admin dashboard (ciro, sipariş/ürün/kullanıcı sayısı, düşük stok, kullanıcı listesi)
+- [x] Ürün görselleri: DiceBear animasyon karakterleri (manken niyetine, çok çeşitli), ürün başına 5 görsel
+- [x] Kaydırmalı görsel galerisi (sürükle + ok + thumbnail)
+- [x] Tarz (Casual, Grunge, Gothic, Streetwear...) ve kesim (Slim, Oversize, Bol Paça...) attribute'leri
+- [x] Kapsamlı filtre paneli: belirgin arama, fiyat aralığı barı, tarz, kesim, beden, renk
+- [x] Ürün ekran boyutu ayarı (2/3/4/5 sütun)
+- [x] Filtre seçenekleri endpoint'i (/products/filters)
+- [x] Daha eşsiz/canlı kategori kartları (karakter görselli)
+- [x] Admin panelinde ürün eklerken tam 5 görsel URL'i girme (zorunlu, önizlemeli)
+- [x] Seed görselleri gerçek kıyafet fotoğraflarına çevrildi (kategori+cinsiyet eşleşmeli)

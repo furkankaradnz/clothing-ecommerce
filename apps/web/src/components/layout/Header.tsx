@@ -16,6 +16,7 @@ export default function Header() {
     { label: 'Çocuk', to: '/kategori/cocuk' },
     { label: 'Ayakkabı', to: '/kategori/ayakkabi' },
     { label: 'Aksesuar', to: '/kategori/aksesuar' },
+    { label: '🔥 İndirim', to: '/indirim' },
     { label: 'Tüm Ürünler', to: '/urunler' },
   ];
 
@@ -68,6 +69,12 @@ export default function Header() {
                 </Link>
                 {user.role === 'ADMIN' && (
                   <>
+                    <Link
+                      to="/admin"
+                      className="hidden sm:inline text-sm font-medium text-indigo-600 hover:text-indigo-800"
+                    >
+                      Panel
+                    </Link>
                     <Link
                       to="/admin/urunler"
                       className="hidden sm:inline text-sm font-medium text-indigo-600 hover:text-indigo-800"

@@ -4,6 +4,12 @@ import { productQuerySchema } from './product.schema';
 import { asyncHandler } from '../../common/utils/asyncHandler';
 
 export const productController = {
+  // Filtre panelindeki seçenekler (tarz, kesim, renk, beden, fiyat aralığı)
+  filters: asyncHandler(async (_req: Request, res: Response) => {
+    const data = await productService.getFilterOptions();
+    res.json({ success: true, data });
+  }),
+
   list: asyncHandler(async (req: Request, res: Response) => {
     // Query string'i doğrula + varsayılanları uygula
     const query = productQuerySchema.parse(req.query);

@@ -14,6 +14,7 @@ import addressRoutes from './modules/addresses/address.routes';
 import orderRoutes from './modules/orders/order.routes';
 import reviewRoutes from './modules/reviews/review.routes';
 import chatRoutes from './modules/chat/chat.routes';
+import adminRoutes from './modules/admin/admin.routes';
 
 export function createApp() {
   const app = express();
@@ -41,6 +42,7 @@ export function createApp() {
   app.use('/api/orders', orderRoutes);
   app.use('/api/reviews', reviewRoutes);
   app.use('/api/chat', chatRoutes);
+  app.use('/api/admin', adminRoutes);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

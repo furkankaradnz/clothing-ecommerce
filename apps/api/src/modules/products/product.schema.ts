@@ -19,6 +19,10 @@ export const createProductSchema = z.object({
   basePrice: z.number().positive('Fiyat pozitif olmalı'),
   categoryId: z.string().uuid('Geçerli bir kategori seçin'),
   isActive: z.boolean().default(true),
+  // Tam olarak 5 ürün görseli zorunlu
+  images: z
+    .array(z.string().url('Geçerli bir görsel URL\'si girin'))
+    .length(5, 'Tam olarak 5 görsel eklemelisiniz'),
   variants: z.array(variantSchema).min(1, 'En az bir varyant gerekli'),
 });
 
@@ -41,6 +45,10 @@ export const productQuerySchema = z.object({
   maxPrice: z.coerce.number().optional(),
   size: z.string().optional(), // beden filtresi
   color: z.string().optional(), // renk filtresi
+  style: z.string().optional(), // tarz filtresi
+  fit: z.string().optional(), // kesim filtresi
+  onSale: z.coerce.boolean().optional(), // sadece indirimdekiler
+  featured: z.coerce.boolean().optional(), // sadece öne çıkanlar
   sort: z
     .enum(['newest', 'price-asc', 'price-desc', 'name-asc'])
     .default('newest'),

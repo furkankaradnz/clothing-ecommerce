@@ -79,14 +79,14 @@ npm run dev                          # http://localhost:3000
 
 ## 🗺 Yol Haritası
 
-- [x] Hafta 1.1: Altyapı, Docker, proje iskeleti
-- [x] Hafta 1.2: Kimlik doğrulama (JWT, rol bazlı erişim)
-- [x] Hafta 2.1: Ürün / kategori / varyant CRUD, filtreleme
-- [x] Hafta 2.2: Frontend katalog, ürün detay (responsive)
-- [x] Hafta 3.1: Sepet, adres yönetimi
-- [x] Hafta 3.2: Checkout, sipariş akışı, stok düşme (transaction)
-- [x] Hafta 4.1: Admin paneli, yorumlar, arama
-- [x] Hafta 4.2: Test, iyileştirme, Docker prod build, sunum
+- [x] Hafta 1: Altyapı, Docker, proje iskeleti
+- [x] Hafta 2: Kimlik doğrulama (JWT, rol bazlı erişim)
+- [x] Hafta 3: Ürün / kategori / varyant CRUD, filtreleme
+- [ ] Hafta 4: Frontend katalog, ürün detay (responsive)
+- [x] Hafta 5: Sepet, adres yönetimi
+- [x] Hafta 6: Checkout, sipariş akışı, stok düşme (transaction)
+- [x] Hafta 7: Admin paneli, yorumlar, arama
+- [ ] Hafta 8: Test, iyileştirme, Docker prod build, sunum
 
 ## 📝 Notlar
 - Stok **varyant** seviyesinde tutulur (beden + renk kombinasyonu).
@@ -145,3 +145,13 @@ docker compose -f docker-compose.prod.yml down -v    # + verileri sil
 ```
 Frontend Nginx, `/api` isteklerini backend konteynerine proxy'ler; kullanıcı
 tek bir port (80) üzerinden hem siteye hem API'ye erişir.
+
+## 🎨 Ürün Görselleri
+
+Örnek (seed) ürün görselleri, ücretsiz stok fotoğraf sitelerinden (Unsplash,
+Pexels) alınan gerçek kıyafet fotoğraflarıdır ve ürünün kategorisi/cinsiyetiyle
+örtüşür (kadın elbise → elbise fotoğrafı, erkek tişört → erkek tişört, ayakkabı
+→ ayakkabı vb.). Her ürünün 5 görseli vardır; tarayıcı bunları doğrudan yükler.
+
+Admin panelinden yeni ürün eklerken **tam 5 görsel URL'i** girilmesi zorunludur;
+ilk görsel kapak (birincil) görsel olur.

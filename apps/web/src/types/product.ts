@@ -26,10 +26,14 @@ export interface Product {
   slug: string;
   description: string;
   basePrice: string;
+  discountPrice?: string | null;
+  isFeatured?: boolean;
   isActive: boolean;
   material?: string | null;
   careInfo?: string | null;
   brand?: string | null;
+  style?: string | null;
+  fit?: string | null;
   category: Category;
   variants: Variant[];
   images: ProductImage[];
@@ -56,5 +60,18 @@ export interface ProductFilters {
   maxPrice?: number;
   size?: string;
   color?: string;
+  style?: string;
+  fit?: string;
+  onSale?: boolean;
+  featured?: boolean;
   sort?: 'newest' | 'price-asc' | 'price-desc' | 'name-asc';
+}
+
+// Filtre panelinde gösterilecek seçenekler
+export interface FilterOptions {
+  styles: string[];
+  fits: string[];
+  sizes: string[];
+  colors: string[];
+  priceRange: { min: number; max: number };
 }

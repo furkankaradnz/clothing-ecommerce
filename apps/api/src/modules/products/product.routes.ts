@@ -11,6 +11,7 @@ const router = Router();
 
 // Herkese açık okuma (filtreleme query string ile: ?category=&search=&size=&color=&minPrice=&sort=)
 router.get('/', productController.list);
+router.get('/filters', productController.filters); // filtre seçenekleri
 router.get('/slug/:slug', productController.getBySlug);
 router.get('/:id', productController.getById);
 

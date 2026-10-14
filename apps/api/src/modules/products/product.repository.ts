@@ -57,8 +57,16 @@ export const productRepository = {
         categoryId: data.categoryId,
         isActive: data.isActive,
         variants: { create: data.variants },
+        // 5 görseli sırayla kaydet; ilki birincil (kapak) görsel
+        images: {
+          create: data.images.map((url, i) => ({
+            url,
+            isPrimary: i === 0,
+            sortOrder: i,
+          })),
+        },
       },
-      include: { variants: true, category: true },
+      include: { variants: true, category: true, images: true },
     }),
 
   update: (id: string, data: UpdateProductInput) =>

@@ -5,6 +5,7 @@ import HomePage from '../features/catalog/HomePage';
 import CatalogPage from '../features/catalog/CatalogPage';
 import CategoryPage from '../features/catalog/CategoryPage';
 import ProductDetailPage from '../features/catalog/ProductDetailPage';
+import DiscountPage from '../features/catalog/DiscountPage';
 import FaqPage from '../features/static/FaqPage';
 import AboutPage from '../features/static/AboutPage';
 import ContactPage from '../features/static/ContactPage';
@@ -17,6 +18,7 @@ import OrderSuccessPage from '../features/orders/OrderSuccessPage';
 import MyOrdersPage from '../features/orders/MyOrdersPage';
 import AdminOrdersPage from '../features/admin/AdminOrdersPage';
 import AdminProductsPage from '../features/admin/AdminProductsPage';
+import AdminDashboard from '../features/admin/AdminDashboard';
 import LoginPage from '../features/auth/LoginPage';
 import RegisterPage from '../features/auth/RegisterPage';
 
@@ -29,6 +31,7 @@ export default function App() {
         <Route path="/urunler" element={<CatalogPage />} />
         <Route path="/kategori/:slug" element={<CategoryPage />} />
         <Route path="/urun/:slug" element={<ProductDetailPage />} />
+        <Route path="/indirim" element={<DiscountPage />} />
         <Route path="/sepet" element={<CartPage />} />
         <Route path="/giris" element={<LoginPage />} />
         <Route path="/kayit" element={<RegisterPage />} />
@@ -74,6 +77,14 @@ export default function App() {
         />
 
         {/* Sadece admin */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute requireAdmin>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/admin/urunler"
           element={

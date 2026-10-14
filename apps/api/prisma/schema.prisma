@@ -7,6 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 // ---------------- Kullanıcı ----------------
@@ -72,10 +73,14 @@ model Product {
   slug        String           @unique
   description String
   basePrice   Decimal          @db.Decimal(10, 2)
+  discountPrice Decimal?       @db.Decimal(10, 2)  // indirimli fiyat (varsa)
   isActive    Boolean          @default(true)
+  isFeatured  Boolean          @default(false)     // ana sayfada öne çıkan
   material    String?          // örn: "%100 Pamuk"
   careInfo    String?          // örn: "30°C'de yıkayın"
   brand       String?          // marka adı
+  style       String?          // tarz: Casual, Grunge, Gothic, Klasik...
+  fit         String?          // kesim: Slim, Oversize, Bol Paça...
   variants    ProductVariant[]
   images      ProductImage[]
   reviews     Review[]
